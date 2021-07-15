@@ -1,4 +1,4 @@
-# vote
+# mall
 
 ## Project setup
 ```
