@@ -1,4 +1,29 @@
-body{
-    padding:0 10px;
-    margin:0;
+@import "./normalize.css";
+
+:root {
+    --color-text: #666;
+    --color-hign-text: #ff5777;
+    --color-tint: #ff8198;
+    --color-background: #fff;
+    --font-size: 14px;
+    --line-height: 1.5;
+}
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    width: 100vw;
+}
+a {
+    color: var(--color-text);
+    text-decoration: none;
+}
+.left {
+    float: left;
+}
+.right{
+    float: right;
 }

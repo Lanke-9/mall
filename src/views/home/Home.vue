@@ -1,41 +1,53 @@
 <template>
     <div class="home">
-        <div>
-            home
+        <nav-bar class="home-nav">
+            <div slot="center">购物街</div>
+        </nav-bar>
 
-            <h4>{{$store.state.counter}}</h4>
+        <van-swipe :autoplay="3000">
+            <van-swipe-item v-for="(image, index) in bannerList" :key="index">
+                <img class="swiper-img" :src="image.image" />
+            </van-swipe-item>
+        </van-swipe>
 
-            <button @click="add">+</button>
-            <button @click="subtraction">-</button>
-        </div>
-
-        <router-link to="/home/news">消息</router-link>
-        <router-link to="/home/msg">信息</router-link>
-
-        <router-view></router-view>
     </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-import { INCREMENT, DECREMENT } from '../../store/mutations-types'
+import NavBar from "components/navbar/NavBar";
+import { getHomeData } from "network/home";
+import { Swipe, SwipeItem } from 'vant';
+import Vue from 'vue';
+Vue.use(Swipe);
+Vue.use(SwipeItem);
+
 export default {
     name: 'Home',
-    methods: {
-        add(){
-            // this.$store.commit(INCREMENT);
-            this.$store.dispatch('aUpdateInfo')
-        },
-        subtraction(){
-            this.$store.commit(DECREMENT);
-            // this.$store.commit({
-            //     type: 'increment'
-            // });
+    data() {
+        return {
+            bannerList: [],
+            recommendList: []
         }
     },
+    components: {
+        NavBar,
+    },
     created() {
-        this.$store.commit('hideTabBar')
+        getHomeData().then(res => {
+            this.bannerList = res.data.banner.list;
+            this.recommendList = res.data.recommend.list;
+            // console.log(this.bannerList);
+        })
     }
 }
 </script>
+
+<style>
+    .home-nav{
+        background: var(--color-tint);
+        color:#fff;
+    }
+    .swiper-img{
+        width:100%;
+    }
+</style>
